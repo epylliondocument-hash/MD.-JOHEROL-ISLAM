@@ -240,6 +240,49 @@ export const AnalyticsTab: React.FC<AnalyticsTabProps> = ({
         </div>
       </div>
 
+      {/* Streamlit Python Application Card */}
+      <div className="bg-gradient-to-br from-rose-950/30 to-slate-900 rounded-2xl p-4 border border-rose-500/30 shadow-md">
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2">
+            <span className="text-base">🐍</span>
+            <div>
+              <h3 className="text-xs font-bold text-slate-100">Streamlit Python App (streamlit_app.py)</h3>
+              <p className="text-[10px] text-rose-300">Ready for Streamlit Community Cloud or local execution</p>
+            </div>
+          </div>
+          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20">
+            Python 3
+          </span>
+        </div>
+
+        <p className="text-[11px] text-slate-300/80 mb-3 leading-relaxed">
+          The standalone <code className="text-rose-300 bg-slate-950 px-1 py-0.5 rounded font-mono">streamlit_app.py</code> and <code className="text-slate-300 bg-slate-950 px-1 py-0.5 rounded font-mono">requirements.txt</code> files are configured in the project root.
+        </p>
+
+        <div className="bg-slate-950 rounded-xl p-2.5 border border-slate-800 font-mono text-[11px] text-slate-300 flex items-center justify-between mb-3">
+          <span className="text-rose-400 select-all">$ streamlit run streamlit_app.py</span>
+          <button
+            onClick={() => {
+              trigger('tap');
+              navigator.clipboard?.writeText('streamlit run streamlit_app.py');
+            }}
+            className="text-[10px] text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800"
+          >
+            Copy
+          </button>
+        </div>
+
+        <a
+          href="/streamlit_app.py"
+          download="streamlit_app.py"
+          onClick={() => trigger('success')}
+          className="w-full py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition active:scale-98"
+        >
+          <Download className="w-3.5 h-3.5 text-rose-400" />
+          <span>Download streamlit_app.py</span>
+        </a>
+      </div>
+
     </div>
   );
 };
