@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Shirt, Timer, Download, ChevronDown, Check, Sparkles } from 'lucide-react';
+import { Shirt, Timer, Download, ChevronDown, Check, Sparkles, Globe } from 'lucide-react';
 import { GarmentStyle } from '../types';
 import { PRESET_GARMENT_STYLES } from '../ladders';
 import { useHaptics } from '../hooks/useHaptics';
@@ -9,6 +9,7 @@ interface AndroidTopBarProps {
   onSelectStyle: (style: GarmentStyle) => void;
   onOpenStopwatch: () => void;
   onOpenInstallModal: () => void;
+  onOpenPublishModal: () => void;
   isInstallable: boolean;
 }
 
@@ -17,6 +18,7 @@ export const AndroidTopBar: React.FC<AndroidTopBarProps> = ({
   onSelectStyle,
   onOpenStopwatch,
   onOpenInstallModal,
+  onOpenPublishModal,
   isInstallable,
 }) => {
   const [showStyleMenu, setShowStyleMenu] = useState(false);
@@ -38,7 +40,7 @@ export const AndroidTopBar: React.FC<AndroidTopBarProps> = ({
             <div className="w-6 h-6 rounded-full bg-blue-600/20 text-blue-400 flex items-center justify-center">
               <Shirt className="w-3.5 h-3.5" />
             </div>
-            <div className="max-w-[140px] sm:max-w-[200px] truncate">
+            <div className="max-w-[130px] sm:max-w-[180px] truncate">
               <div className="text-xs font-bold text-slate-100 truncate">{currentStyle.styleName}</div>
               <div className="text-[10px] text-slate-400 truncate font-mono">{currentStyle.styleCode}</div>
             </div>
@@ -86,13 +88,26 @@ export const AndroidTopBar: React.FC<AndroidTopBarProps> = ({
 
         {/* Action Buttons */}
         <div className="flex items-center gap-1.5">
+          {/* Publish Free Button */}
+          <button
+            onClick={() => {
+              trigger('tap');
+              onOpenPublishModal();
+            }}
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 text-xs font-semibold transition active:scale-95"
+            title="Publish Free & Share"
+          >
+            <Globe className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="text-[11px]">Publish Free</span>
+          </button>
+
           {/* Shop Floor Takt Time Stopwatch Tool */}
           <button
             onClick={() => {
               trigger('tap');
               onOpenStopwatch();
             }}
-            className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/60 text-xs font-medium transition active:scale-95"
+            className="flex items-center gap-1 px-2 py-1.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/60 text-xs font-medium transition active:scale-95"
             title="Open IE Floor Time Study Stopwatch"
           >
             <Timer className="w-3.5 h-3.5 text-amber-400" />
@@ -106,7 +121,7 @@ export const AndroidTopBar: React.FC<AndroidTopBarProps> = ({
                 trigger('tap');
                 onOpenInstallModal();
               }}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-md active:scale-95 transition"
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-md active:scale-95 transition"
               title="Install Android App"
             >
               <Download className="w-3.5 h-3.5" />

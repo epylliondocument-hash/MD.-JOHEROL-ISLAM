@@ -11,6 +11,7 @@ import { LineBalanceTab } from './components/LineBalanceTab';
 import { AnalyticsTab } from './components/AnalyticsTab';
 import { TaktStopwatchModal } from './components/TaktStopwatchModal';
 import { PWAInstallDialog } from './components/PWAInstallDialog';
+import { PublishFreeModal } from './components/PublishFreeModal';
 import { usePWAInstall } from './hooks/usePWAInstall';
 
 export default function App() {
@@ -30,6 +31,7 @@ export default function App() {
   const [isStopwatchOpen, setIsStopwatchOpen] = useState(false);
   const [stopwatchTargetOpId, setStopwatchTargetOpId] = useState<string | undefined>(undefined);
   const [isInstallModalOpen, setIsInstallModalOpen] = useState(false);
+  const [isPublishModalOpen, setIsPublishModalOpen] = useState(false);
 
   const { isInstallable } = usePWAInstall();
 
@@ -103,6 +105,7 @@ export default function App() {
           onSelectStyle={setCurrentStyle}
           onOpenStopwatch={() => handleOpenTimeStudy()}
           onOpenInstallModal={() => setIsInstallModalOpen(true)}
+          onOpenPublishModal={() => setIsPublishModalOpen(true)}
           isInstallable={isInstallable}
         />
 
@@ -162,6 +165,11 @@ export default function App() {
         {/* Android PWA Install Dialog */}
         {isInstallModalOpen && (
           <PWAInstallDialog onClose={() => setIsInstallModalOpen(false)} />
+        )}
+
+        {/* Free Publish & Share Modal */}
+        {isPublishModalOpen && (
+          <PublishFreeModal onClose={() => setIsPublishModalOpen(false)} />
         )}
       </div>
     </AndroidFrame>
